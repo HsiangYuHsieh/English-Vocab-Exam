@@ -6,6 +6,9 @@
   const toggleBtn = document.getElementById('toggleExamples');
   const wordCountEl = document.getElementById('wordCount');
   const emptyStateEl = document.getElementById('emptyState');
+  const startQuizBtn = document.getElementById('startQuiz');
+  const quizViewEl = document.getElementById('quizView');
+  const toolbarEl = document.querySelector('.toolbar');
 
   let currentUnit = units[0].unit;
   let showExamples = true;
@@ -48,8 +51,27 @@
       if (!btn) return;
       currentUnit = btn.dataset.unit === 'all' ? 'all' : Number(btn.dataset.unit);
       searchBoxEl.value = '';
+      showWordList();
       render();
+      window.scrollTo(0, 0);
     });
+  }
+
+  function showWordList() {
+    quizViewEl.hidden = true;
+    quizViewEl.innerHTML = '';
+    toolbarEl.hidden = false;
+    wordListEl.hidden = false;
+    render();
+    window.scrollTo(0, 0);
+  }
+
+  function showQuiz() {
+    toolbarEl.hidden = true;
+    wordListEl.hidden = true;
+    emptyStateEl.hidden = true;
+    quizViewEl.hidden = false;
+    window.scrollTo(0, 0);
   }
 
   function updateActiveTab() {
@@ -98,6 +120,7 @@
 
   function render() {
     updateActiveTab();
+    startQuizBtn.hidden = currentUnit === 'all';
     const query = searchBoxEl.value.trim();
     let html = '';
     let total = 0;
@@ -134,6 +157,14 @@
     }
     render();
   });
+
+  startQuizBtn.addEventListener('click', () => {
+    if (currentUnit === 'all') return;
+    showQuiz();
+    window.VocabQuiz.start(currentUnit, quizViewEl, showWordList);
+  });
+
+  window.VocabApp = { units, getCurrentUnit: () => currentUnit };
 
   buildTabs();
   render();

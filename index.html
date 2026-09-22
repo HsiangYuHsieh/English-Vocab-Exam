@@ -17,6 +17,7 @@
 <div class="toolbar">
   <input type="search" id="searchBox" placeholder="搜尋單字或中文意思…" autocomplete="off">
   <button id="toggleExamples" class="toggle-btn">隱藏例句</button>
+  <button id="startQuiz" class="toggle-btn quiz-btn" hidden>📝 開始測驗</button>
   <span class="word-count" id="wordCount"></span>
 </div>
 
@@ -24,11 +25,14 @@
 
 <p class="empty-state" id="emptyState" hidden>找不到符合的單字。</p>
 
+<section id="quizView" class="quiz-view" hidden></section>
+
 <footer class="site-footer">
   <p>資料整理自個人課本照片，僅供個人學習使用。</p>
 </footer>
 
 <script src="data.js"></script>
 <script src="app.js"></script>
+<script src="quiz.js"></script>
 </body>
 </html>
