@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英文單字學習網站 Unit 26–31</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <h1>英文單字學習網站</h1>
+  <p class="subtitle">Unit 26 – 31 ・ 單字・音標・詞性・中文意思・例句中英對照</p>
+</header>
+
+<nav class="unit-tabs" id="unitTabs"></nav>
+
+<div class="toolbar">
+  <input type="search" id="searchBox" placeholder="搜尋單字或中文意思…" autocomplete="off">
+  <button id="toggleExamples" class="toggle-btn">隱藏例句</button>
+  <span class="word-count" id="wordCount"></span>
+</div>
+
+<main id="wordList" class="word-list"></main>
+
+<p class="empty-state" id="emptyState" hidden>找不到符合的單字。</p>
+
+<footer class="site-footer">
+  <p>資料整理自個人課本照片，僅供個人學習使用。</p>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
