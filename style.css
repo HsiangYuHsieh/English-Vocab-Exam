@@ -390,6 +390,18 @@ mark {
 
 .quiz-options-readonly .quiz-option-readonly {
   cursor: default;
+  align-items: flex-start;
+}
+
+.quiz-opt-word-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.quiz-opt-meaning {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
 }
 
 .opt-correct {

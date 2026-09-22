@@ -38,7 +38,7 @@
     return pool;
   }
 
-  function pickQuestions(pool, allWords) {
+  function pickQuestions(pool, allWords, meaningMap) {
     // Prefer one question per distinct word for variety.
     const byWord = {};
     pool.forEach((item) => {
@@ -71,6 +71,7 @@
         en: item.en,
         zh: item.zh,
         options,
+        optionMeanings: options.map((w) => meaningMap[w] || ''),
         correctIndex: options.indexOf(item.word),
       };
     });
@@ -162,7 +163,10 @@
                 if (i === pickedIndex && !correct) cls += ' opt-wrong-pick';
                 return `<div class="${cls}">
                   <span class="quiz-opt-letter">${letters[i]}</span>
-                  <span class="quiz-opt-word">${escapeHtml(opt)}</span>
+                  <span class="quiz-opt-word-wrap">
+                    <span class="quiz-opt-word">${escapeHtml(opt)}</span>
+                    <span class="quiz-opt-meaning">${escapeHtml(q.optionMeanings[i] || '')}</span>
+                  </span>
                 </div>`;
               }).join('')}
             </div>
@@ -194,13 +198,15 @@
     if (!unitData) return;
     const pool = buildPool(unitData);
     const allWords = [...new Set(unitData.entries.map((e) => e.word))];
+    const meaningMap = {};
+    unitData.entries.forEach((e) => { meaningMap[e.word] = e.meaning; });
 
     if (pool.length < 4 || allWords.length < 4) {
       container.innerHTML = '<p class="quiz-empty">這個 Unit 的例句不足以出題，請稍後再試。</p>';
       return;
     }
 
-    const questions = pickQuestions(pool, allWords);
+    const questions = pickQuestions(pool, allWords, meaningMap);
     const restart = () => start(unitNumber, container, onExit);
     renderQuiz(container, questions, unitNumber, onExit, restart);
     window.scrollTo(0, 0);
