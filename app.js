@@ -9,9 +9,18 @@
   const startQuizBtn = document.getElementById('startQuiz');
   const quizViewEl = document.getElementById('quizView');
   const toolbarEl = document.querySelector('.toolbar');
+  const subtitleEl = document.getElementById('subtitle');
 
   let currentUnit = units[0].unit;
   let showExamples = true;
+
+  (function setSubtitle() {
+    const unitNumbers = units.map((u) => u.unit);
+    const min = Math.min(...unitNumbers);
+    const max = Math.max(...unitNumbers);
+    const range = min === max ? `Unit ${min}` : `Unit ${min} – ${max}`;
+    subtitleEl.textContent = range + ' ・ ' + subtitleEl.textContent;
+  })();
 
   function escapeHtml(str) {
     return String(str)
